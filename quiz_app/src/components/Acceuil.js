@@ -32,6 +32,7 @@ class Acceuil extends Component {
         return response.json();
       })
       .then((res) => {
+        console.log(res.results)
         this.setState({
           data: res.results,
           loading: false,
@@ -58,13 +59,16 @@ class Acceuil extends Component {
     const currentItem = data[currentPage - 1];
 
     return (
-        <div>
-        <h1>Data from API</h1>
-        <ul>
-          <li key={currentItem.question}>{currentItem.question}</li>
-        </ul>
-        <div>
-          {/* Pagination buttons */}
+        <div className='container'>
+        <h1>Quiz</h1>
+        <h4 key={currentItem.question}>{currentItem.question}</h4>
+        
+            {currentItem.incorrect_answers.map((item)=>{
+                console.log(item);
+                return <div><button>{item}</button><br/></div>
+            })}
+            <button>{currentItem.correct_answer}</button>
+        <div className='bottom'>
           {currentPage > 1 && (
             <button onClick={() => this.paginate(currentPage - 1)}>Previous</button>
           )}
